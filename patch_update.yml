@@ -1,0 +1,28 @@
+---
+
+- hosts: all
+  tasks:
+
+  - name: update repository index
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+  - name: patch update ubuntu
+    apt:
+      upgrade: dist
+      state: "latest"
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Check Fedora patches
+    dnf:
+      update_cache: yes
+    when: ansible_distribution == "Fedora"
+
+  - name: Patch Fedora servers
+    dnf:
+      name: '*'
+      state: "latest"
+    when: ansible_distribution == "Fedora"    
+
+
