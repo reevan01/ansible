@@ -3,13 +3,19 @@
 - hosts: all
   tasks:
 
-  - name: Remove apache2 package
+  - name: Remove apache2 & php support packages 
     apt:
-      name: apache2
+      name:
+        - apache2
+        - libapache2-mod-php
       state: absent
+    when: ansible_distribution == "Ubuntu"
 
-  - name: Remove php support for apache
-    apt:
-      name: libapache2-mod-php
+  - name: Remove httpd & php packages on Fedora
+    dnf:
+      name:
+        - httpd
+        - php
       state: absent
+    when: ansible_distribution == "Fedora"
 
