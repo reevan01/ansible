@@ -3,36 +3,21 @@
 - hosts: all
   tasks:
 
-  - name: update repository index Ubuntu
+  - name: install apache2 and php packages on Ubuntu
     apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
 
-  - name: install apache2 package on Ubuntu
-    apt:
-      name: apache2
-      state: latest
-    when: ansible_distribution == "Ubuntu"
-
-  - name: add php support for apache on Ubuntu
-    apt:
-      name: libapache2-mod-php
-      state: latest
-    when: ansible_distribution == "Ubuntu"
-
-  - name: update repository index Fedora
+  - name: Install httpd  & php packages on Fedora
     dnf:
+      name: 
+        - httpd
+        - php
+      state: latest
       update_cache: yes
     when: ansible_distribution == "Fedora"
 
-  - name: install httpd package on Fedora
-    dnf:
-      name: httpd
-      state: latest
-    when: ansible_distribution == "Fedora"
-
-  - name: add php support for apache on Fedora
-    dnf:
-      name: php
-      state: latest
-    when: ansible_distribution == "Fedora"
