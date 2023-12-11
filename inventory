@@ -1,6 +1,11 @@
+[web_servers]
 base1
 base2
+base6
+
+[db_servers]
 base3
 base4
+
+[file_servers]
 base5
-base6
