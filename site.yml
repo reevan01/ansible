@@ -54,6 +54,30 @@
       state: latest
     when: ansible_distribution == "Fedora"
 
+  - name: start httpd (fedora)
+    tags: apache,fedora,httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_distribution == "Fedora"
+
+  - name: Change e-mail address for admin
+    tags: apache,fedora.httpd
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin somebody@somewhere.net
+    when: ansible_distribution == "Fedora"
+    register: httpd
+
+  - name: restart httpd (fedora)
+    tags: apache,fedora,httpd
+    service:
+      name: httpd
+      state: restarted
+    when: httpd.changed
+
   - name: copy default html file for site
     tags: apache,apache2,httpd
     copy:
