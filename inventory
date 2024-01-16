@@ -9,3 +9,6 @@ base4
 
 [file_servers]
 base5
+
+[workstations]
+ansible-master
