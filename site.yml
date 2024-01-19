@@ -6,16 +6,39 @@
   - name: install updates (Fedora)
     tags: always
     dnf:
-      update_only: yes
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "Fedora"
 
   - name: intsall updates (Ubuntu)
     tags: always
     apt:
-      upgrade: dist
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "Ubuntu"
+
+- hosts: all
+  tasks:
+  - name: create esme user
+    tags: always
+    user:
+      name: esme
+      groups: users,root
+
+  - name: add ssh key for Esme
+    tags: always
+    authorized_key:
+      user: esme
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGy2f8bzfKfgoLw/C2vuCgulXNRvL+PjGXkpkLOCEwcQ root key"
+
+  - name: add sudoers file for esme
+    tags: always
+    copy:
+      src: sudoers_esme
+      dest: /etc/sudoers.d/esme
+      owner: root
+      group: root
+      mode: 0440
 
 - hosts: workstations
   tasks: 
