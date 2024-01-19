@@ -1,0 +1,12 @@
+---
+
+- hosts: web_servers
+  tasks:
+
+  - name: add port 80 to fedora servers
+    firewalld:
+      port: 80/tcp
+      permanent: yes
+      immediate: yes
+      state: enabled
+    when: ansible_distribution == "Fedora"
