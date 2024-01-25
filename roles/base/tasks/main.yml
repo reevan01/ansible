@@ -1,0 +1,4 @@
+- name: add ssh key for Esme
+  authorized_key:
+    user: esme
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGy2f8bzfKfgoLw/C2vuCgulXNRvL+PjGXkpkLOCEwcQ root key"
