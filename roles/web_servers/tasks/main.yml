@@ -1,44 +1,26 @@
-- name: install apache2 & php packages on Ubuntu
-  tags: apache,apache2,ununtu
-  apt:
+- name: install apache2 & php packages
+  tags: apache,httpd.php
+  package:
     name:
-      - apache2
-      - libapache2-mod-php
+      - "{{ apache_package_name }}"
+      - "{{ php_package_name }}"
     state: latest
-  when: ansible_distribution == "Ubuntu"
 
-- name: Install httpd & php packages on Fedora
-  tags: apache,fedore,httpd
-  dnf:
-    name:
-      - httpd
-      - php
-    state: latest
-  when: ansible_distribution == "Fedora"
-
-- name: start httpd (fedora)
-  tags: apache,fedora,httpd
+- name: start and enable apache service
+  tags: apache,httpd
   service:
-    name: httpd
+    name: "{{ apache_service }}"
     state: started
     enabled: yes
-  when: ansible_distribution == "Fedora"
 
 - name: Change e-mail address for admin
   tags: apache,fedora.httpd
   lineinfile:
     path: /etc/httpd/conf/httpd.conf
     regexp: '^ServerAdmin'
-    line: ServerAdmin somebody@somewhere.net
+    line: ServerAdmin andy@truepalm.co.uk
   when: ansible_distribution == "Fedora"
-  register: httpd
-
-- name: restart httpd (fedora)
-  tags: apache,fedora,httpd
-  service:
-    name: httpd
-    state: restarted
-  when: httpd.changed
+  notify: restart_apache
 
 - name: copy default html file for site
   tags: apache,apache2,httpd
