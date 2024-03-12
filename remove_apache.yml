@@ -1,6 +1,7 @@
 ---
 
 - hosts: all
+  become: true
   tasks:
 
   - name: Remove apache2 & php support packages 
