@@ -1,0 +1,22 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Remove apache2 & php support packages 
+    apt:
+      name:
+        - apache2
+        - libapache2-mod-php
+      state: absent
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Remove httpd & php packages on Fedora
+    dnf:
+      name:
+        - httpd
+        - php
+      state: absent
+    when: ansible_distribution == "Fedora"
+
