@@ -22,7 +22,7 @@
   roles:
     - base
 
-- hosts: ansible_master
+- hosts: ansible-master
   roles:
     - workstations
 
