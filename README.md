@@ -12,7 +12,7 @@ git add README.md
 git commit -m "updated readme file" 
 git push origin main 
 
-or just^m 
+or just 
 git push
 
 the first and last are different from the tutorial.
