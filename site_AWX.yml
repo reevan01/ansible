@@ -1,0 +1,39 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: update repository index (Fedora)
+    tags: always
+    dnf:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "Fedora"
+
+  - name: update repository index (Ubuntu)
+    tags: always
+    apt:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "Ubuntu"
+
+- hosts: all
+  roles:
+    - base
+
+- hosts: ansible_master
+  roles:
+    - workstations
+
+- hosts: base1,base2,base6
+  roles:
+    - web_servers
+
+- hosts: base3,base4
+  roles:
+    - db_servers
+
+- hosts: base5
+  roles:
+    - file_servers
