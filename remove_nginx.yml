@@ -1,0 +1,12 @@
+---
+
+- hosts: satellite
+  tasks:
+
+  - name: Remove nginx from Rhel servers
+    dnf:
+      name: 
+        - nginx
+      state: absent
+    when: ansible_distribution == "RedHat"
+
