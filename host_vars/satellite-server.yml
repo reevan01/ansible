@@ -1,0 +1,4 @@
+nginx_package_name: nginx
+nginx_service: nginx
+ssh_users: "root reevesa esme ansible"
+ssh_template_file: sshd_config_rhel.j2
