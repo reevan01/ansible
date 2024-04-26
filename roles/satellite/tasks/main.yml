@@ -1,0 +1,30 @@
+- name: install nginx on rhel
+  package:
+    name:
+      - "{{ nginx_package_name }}"
+    state: latest
+
+- name: start and enable nginx service
+  tags: nginx
+  service:
+    name: "{{ nginx_service }}"
+    state: started
+    enabled: yes
+
+- name: copy default html file for Redhat
+  tags: nginx,RedHat
+  copy:
+    src: default_site.html
+    dest: /usr/share/nginx/html/index.html
+    owner: root
+    group: root
+    mode: 0644
+
+- name: add port 80 to RedHat servers
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+  when: ansible_distribution == "RedHat"
+
