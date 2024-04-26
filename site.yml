@@ -10,6 +10,13 @@
     changed_when: false
     when: ansible_distribution == "Fedora"
 
+  - name: update repository index (Redhat)
+    tags: always
+    dnf:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "RedHat"
+
   - name: update repository index (Ubuntu)
     tags: always
     apt:
@@ -36,3 +43,7 @@
 - hosts: file_servers
   roles:
     - file_servers
+
+- hosts: satellite
+  roles:
+    - satellite
