@@ -12,3 +12,9 @@ base5
 
 [workstations]
 ansible-master
+
+[satellite]
+satellite-server
+
+[openstack]
+openstack-server
