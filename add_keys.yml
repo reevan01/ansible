@@ -1,0 +1,21 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: add ssh key for root
+    tags: always
+    authorized_key:
+      user: root
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGy2f8bzfKfgoLw/C2vuCgulXNRvL+PjGXkpkLOCEwcQ root key"
+
+  - name: add sudoers file for ansible
+    tags: always
+    copy:
+      src: sudoers_ansible
+      dest: /etc/sudoers.d/ansible
+      owner: root
+      group: root
+      mode: 0440
+
